@@ -15,6 +15,23 @@
     xmlns:sca-bpel="http://docs.oasis-open.org/ns/opencsa/sca-bpel/200801"
     xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"
     xmlns:tibprop="http://ns.tibco.com/bw/property" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <tibex:VariableDescriptor type="MemorySaving">
+        <task name="Timer">
+            <endingVariables>
+                <variable>Timer</variable>
+            </endingVariables>
+        </task>
+        <task name="ForEach">
+            <endingVariables>
+                <variable>CreateMovieList</variable>
+            </endingVariables>
+        </task>
+        <task name="ClassificationByGenre">
+            <endingVariables>
+                <variable>ClassificationByGenre-input</variable>
+            </endingVariables>
+        </task>
+    </tibex:VariableDescriptor>
     <tibex:Types>
         <xs:schema attributeFormDefault="unqualified"
             elementFormDefault="qualified"
@@ -639,6 +656,7 @@
         <tibex:namespaceItem
             namespace="http://www.w3.org/2001/XMLSchema" prefix="xsd"/>
     </tibex:NamespaceRegistry>
+    <bpws:documentation>test description - for tibreivew demo</bpws:documentation>
     <bpws:import importType="http://www.w3.org/2001/XMLSchema" namespace="http://www.example.com/namespaces/tns/1461693221287"/>
     <bpws:variables>
         <bpws:variable element="ns:ProcessContext"
@@ -764,6 +782,7 @@
                                     </bpws:sources>
                                     <tibex:inputBindings>
                                     <tibex:inputBinding
+                                    coercion=""
                                     expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.example.com/namespaces/tns/1461693221287&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;index&quot;/>&lt;xsl:param name=&quot;CreateMovieList&quot;/>&lt;xsl:template name=&quot;ClassificationByGenre-input&quot; match=&quot;/&quot;>&lt;tns5:Movie>&lt;tns5:movieName>&lt;xsl:value-of select=&quot;$CreateMovieList/tns5:Movie[$index]/tns5:movieName&quot;/>&lt;/tns5:movieName>&lt;tns5:genre>&lt;xsl:value-of select=&quot;$CreateMovieList/tns5:Movie[$index]/tns5:genre&quot;/>&lt;/tns5:genre>&lt;xsl:if test=&quot;$CreateMovieList/tns5:Movie[$index]/tns5:year&quot;>&lt;tns5:year>&lt;xsl:value-of select=&quot;$CreateMovieList/tns5:Movie[$index]/tns5:year&quot;/>&lt;/tns5:year>&lt;/xsl:if>&lt;/tns5:Movie>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                     </tibex:inputBindings>
                                     <tibex:CallProcess spawn="true"
