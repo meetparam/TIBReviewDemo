@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sca:composite xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:BW="http://xsd.tns.tibco.com/amf/models/sca/implementationtype/BW" xmlns:XMLSchema="http://www.w3.org/2001/XMLSchema" xmlns:compositeext="http://schemas.tibco.com/amx/3.0/compositeext" xmlns:sca="http://www.osoa.org/xmlns/sca/1.0" xmlns:scaext="http://xsd.tns.tibco.com/amf/models/sca/extensions" xmi:id="_3h-bMAs-EeaRq-oIOuTxvg" targetNamespace="http://tns.tibco.com/bw/composite/tibco.bw.sample.core.soa.CallProcess" name="tibco.bw.sample.core.soa.CallProcess" compositeext:version="1.0.0" compositeext:formatVersion="2">
+  <sca:property xmi:id="_3iA3gAs-EeaRq-oIOuTxvg" name="BW.DEPLOYMENTUNIT.TYPE" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_3iA3gQs-EeaRq-oIOuTxvg" name="BW.APPNODE.NAME" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_3iA3ggs-EeaRq-oIOuTxvg" name="BW.DEPLOYMENTUNIT.NAME" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_3iA3gws-EeaRq-oIOuTxvg" name="BW.HOST.NAME" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_3iA3hAs-EeaRq-oIOuTxvg" name="BW.DOMAIN.NAME" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_3iA3hQs-EeaRq-oIOuTxvg" name="BW.DEPLOYMENTUNIT.VERSION" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_3iA3hgs-EeaRq-oIOuTxvg" name="BW.APPSPACE.NAME" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_3iA3hws-EeaRq-oIOuTxvg" name="BW.MODULE.VERSION" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_3iA3iAs-EeaRq-oIOuTxvg" name="BW.MODULE.NAME" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_Ji7VUAyWEeaH5eyCAdoZwA" name="OUTPUT_FILE" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_6u5lsAyoEeaH5eyCAdoZwA" name="FICTION" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_9l_HkAyoEeaH5eyCAdoZwA" name="ACTION" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:property xmi:id="_ADUssAypEeaH5eyCAdoZwA" name="ROMANCE" type="XMLSchema:string" publicAccess="true" scalable="true"/>
+  <sca:component xmi:id="_JpDXEAvIEeaLtNmHVFGt2Q" name="ComponentProcess" compositeext:version="1.0.0.qualifier">
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_JpDXEQvIEeaLtNmHVFGt2Q" processName="tibco.bw.sample.core.soa.callprocess.MainProcess"/>
+  </sca:component>
+</sca:composite>

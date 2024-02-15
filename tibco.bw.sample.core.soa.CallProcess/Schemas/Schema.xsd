@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:tibex="http://www.tibco.com/bpel/2007/extensions" xmlns:tns="http://www.example.com/namespaces/tns/1461693221287" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.com/namespaces/tns/1461693221287">
+  <xsd:element name="movieResume">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="1" minOccurs="1" name="movieName" type="xsd:string"/>
+        <xsd:element maxOccurs="1" minOccurs="0" name="year" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="Movie">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="1" minOccurs="1" name="movieName" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="genre" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="year" type="xsd:integer"/>
+            </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="MoviesList" type="tns:MoviesListType"/>
+
+
+  <xsd:complexType name="MoviesListType">
+  	<xsd:sequence>
+  		<xsd:element maxOccurs="unbounded" minOccurs="0" ref="tns:Movie"/>
+  	</xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
