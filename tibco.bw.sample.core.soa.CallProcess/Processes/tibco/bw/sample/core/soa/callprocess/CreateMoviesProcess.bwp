@@ -11,6 +11,18 @@
     xmlns:sca-bpel="http://docs.oasis-open.org/ns/opencsa/sca-bpel/200801"
     xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"
     xmlns:tibprop="http://ns.tibco.com/bw/property" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <tibex:VariableDescriptor type="MemorySaving">
+        <task name="End">
+            <endingVariables>
+                <variable>Mapper</variable>
+            </endingVariables>
+        </task>
+        <task name="Mapper">
+            <endingVariables>
+                <variable>Mapper-input</variable>
+            </endingVariables>
+        </task>
+    </tibex:VariableDescriptor>
     <tibex:Types>
         <xs:schema attributeFormDefault="unqualified"
             elementFormDefault="qualified"
@@ -363,6 +375,10 @@
             <bendpoints points="[25, 11, -139, -64]$[140, 64, -24, -11]" xsi:type="notation:RelativeBendpoints"/>
         </edges>
     </notation:Diagram>
+    <tibex:NamespaceRegistry enabled="true">
+        <tibex:namespaceItem
+            namespace="http://www.example.com/namespaces/tns/1461693221287" prefix="tns1"/>
+    </tibex:NamespaceRegistry>
     <bpws:import importType="http://www.w3.org/2001/XMLSchema" namespace="http://www.example.com/namespaces/tns/1461693221287"/>
     <bpws:variables>
         <bpws:variable element="ns:ProcessContext"
@@ -371,6 +387,11 @@
         <bpws:variable element="ns1:MoviesList" name="Mapper" sca-bpel:internal="true"/>
         <bpws:variable element="ns1:MoviesList" name="End-input"
             sca-bpel:internal="true" tibex:parameter="out"/>
+        <bpws:variable name="varMovieName" type="xsd:string">
+            <bpws:from>
+                <bpws:literal>Die Hard</bpws:literal>
+            </bpws:from>
+        </bpws:variable>
     </bpws:variables>
     <bpws:extensions>
         <bpws:extension mustUnderstand="no" namespace="http://www.eclipse.org/gmf/runtime/1.0.2/notation"/>
@@ -407,7 +428,7 @@
                     </bpws:targets>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;http://www.example.com/namespaces/tns/1461693221287&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Mapper&quot;/>&lt;xsl:template name=&quot;End-input&quot; match=&quot;/&quot;>&lt;tns:MoviesList>&lt;xsl:copy-of select=&quot;$Mapper/tns:Movie&quot;/>&lt;/tns:MoviesList>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns1=&quot;http://www.example.com/namespaces/tns/1461693221287&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;Mapper&quot;/>&#xa;    &lt;xsl:template name=&quot;End-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:MoviesList>&#xa;            &lt;xsl:copy-of select=&quot;$Mapper/tns1:Movie&quot;/>&#xa;        &lt;/tns1:MoviesList>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
@@ -437,7 +458,7 @@
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns1=&quot;http://www.example.com/namespaces/tns/1461693221287&quot; version=&quot;2.0&quot;>&lt;xsl:template name=&quot;Mapper-input&quot; match=&quot;/&quot;>&lt;tns1:MoviesList>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Die Hard&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Action&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1988&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Mission: Impossible&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Action&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;2011&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Start Wars&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Science Fiction&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1968&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Love Story&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Drama&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1981&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Aliens&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Science Fiction&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1986&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Casino Royale&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Action&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;2006&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Casablanca&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Drama&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1942&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;/tns1:MoviesList>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns1=&quot;http://www.example.com/namespaces/tns/1461693221287&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;varMovieName&quot;/>&lt;xsl:template name=&quot;Mapper-input&quot; match=&quot;/&quot;>&lt;tns1:MoviesList>&lt;xsl:if test=&quot;$varMovieName = &amp;quot;Die Hard&amp;quot;&quot;>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Die Hard&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Action&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1988&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;/xsl:if>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Mission: Impossible&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Action&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;2011&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Start Wars&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Science Fiction&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1968&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Love Story&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Drama&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1981&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Aliens&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Science Fiction&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1986&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Casino Royale&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Action&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;2006&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Casablanca&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Drama&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1942&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;/tns1:MoviesList>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
