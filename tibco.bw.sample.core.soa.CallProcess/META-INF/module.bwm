@@ -17,6 +17,6 @@
     <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_JpDXEQvIEeaLtNmHVFGt2Q" processName="tibco.bw.sample.core.soa.callprocess.MainProcess"/>
   </sca:component>
   <sca:component xmi:id="_F_tusNSaEe6l8ZdD7IwIiQ" name="ComponentReceiveMessageOnJMSQueue" compositeext:version="1.0.0.qualifier">
-    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_F_tusdSaEe6l8ZdD7IwIiQ" processName="tibco.bw.jms.samples.ReceiveMessageOnJMSQueue"/>
+    <scaext:implementation xsi:type="BW:BWComponentImplementation" xmi:id="_F_tusdSaEe6l8ZdD7IwIiQ" processName="ih.edi.jms.samples.ReceiveMessageOnJMSQueue"/>
   </sca:component>
 </sca:composite>
