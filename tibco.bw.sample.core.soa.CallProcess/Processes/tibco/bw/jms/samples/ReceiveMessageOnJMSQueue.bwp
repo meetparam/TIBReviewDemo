@@ -581,41 +581,6 @@
                                     <layoutConstraint x="842"
                                     xsi:type="notation:Bounds" y="153"/>
                                     </children>
-                                    <children type="4002">
-                                    <children type="4017">
-                                    <styles
-                                    fontName="Segoe UI"
-                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
-                                    <layoutConstraint xsi:type="notation:Bounds"/>
-                                    </children>
-                                    <children type="4017">
-                                    <styles
-                                    fontName="Segoe UI"
-                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
-                                    <layoutConstraint xsi:type="notation:Bounds"/>
-                                    </children>
-                                    <children type="4017">
-                                    <styles
-                                    fontName="Segoe UI"
-                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
-                                    <layoutConstraint xsi:type="notation:Bounds"/>
-                                    </children>
-                                    <children type="4017">
-                                    <styles
-                                    fontName="Segoe UI"
-                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
-                                    <layoutConstraint xsi:type="notation:Bounds"/>
-                                    </children>
-                                    <styles fontName="Segoe UI"
-                                    lineColor="0" xsi:type="notation:ShapeStyle"/>
-                                    <styles
-                                    backgroundColor="16777215"
-                                    gradientEndColor="50431"
-                                    gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
-                                    <element href="//0/@process/@activity/@activity/@activities.4"/>
-                                    <layoutConstraint x="675"
-                                    xsi:type="notation:Bounds" y="137"/>
-                                    </children>
                                     <styles xsi:type="notation:DrawerStyle"/>
                                     <styles xsi:type="notation:SortingStyle"/>
                                     <styles xsi:type="notation:FilteringStyle"/>
@@ -785,7 +750,7 @@
         </edges>
         <edges
             source="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2"
-            target="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.4" type="4006">
+            target="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.3" type="4006">
             <children type="6002">
                 <layoutConstraint xsi:type="notation:Location" y="40"/>
             </children>
@@ -794,17 +759,6 @@
             <element href="//0/@process/@activity/@activity/@links/@children.2"/>
             <bendpoints points="[25, 0, -219, 0]$[220, 0, -24, 0]" xsi:type="notation:RelativeBendpoints"/>
             <targetAnchor id="(0.5510204081632653,0.8979591836734694)" xsi:type="notation:IdentityAnchor"/>
-        </edges>
-        <edges
-            source="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.4"
-            target="//@children.0/@children.4/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.3" type="4006">
-            <children type="6002">
-                <layoutConstraint xsi:type="notation:Location" y="40"/>
-            </children>
-            <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
-            <styles fontName="Segoe UI" xsi:type="notation:FontStyle"/>
-            <element href="//0/@process/@activity/@activity/@links/@children.3"/>
-            <bendpoints points="[25, 2, -142, -14]$[143, 14, -24, -2]" xsi:type="notation:RelativeBendpoints"/>
         </edges>
     </notation:Diagram>
     <tibex:NamespaceRegistry enabled="true">
@@ -887,8 +841,7 @@
             <bpws:links>
                 <bpws:link name="JMSReceiveMessageToLog" tibex:linkType="SUCCESS"/>
                 <bpws:link name="LogToCreateMovieList" tibex:linkType="SUCCESS"/>
-                <bpws:link name="CreateMovieListToConfirm" tibex:linkType="SUCCESS"/>
-                <bpws:link name="ConfirmToExit" tibex:linkType="SUCCESS"/>
+                <bpws:link name="CreateMovieListToExit" tibex:linkType="SUCCESS"/>
             </bpws:links>
             <bpws:extensionActivity>
                 <tibex:receiveEvent createInstance="yes"
@@ -962,7 +915,7 @@
                         <bpws:target linkName="LogToCreateMovieList"/>
                     </bpws:targets>
                     <bpws:sources>
-                        <bpws:source linkName="CreateMovieListToConfirm"/>
+                        <bpws:source linkName="CreateMovieListToExit"/>
                     </bpws:sources>
                     <tibex:CallProcess
                         subProcessName="tibco.bw.sample.core.soa.callprocess.CreateMoviesProcess" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"/>
@@ -970,35 +923,9 @@
             </bpws:extensionActivity>
             <bpws:exit name="Exit" tibex:xpdlId="c2524c37-5b8e-48c9-9866-deb8dbf4932b">
                 <bpws:targets>
-                    <bpws:target linkName="ConfirmToExit"/>
+                    <bpws:target linkName="CreateMovieListToExit"/>
                 </bpws:targets>
             </bpws:exit>
-            <bpws:extensionActivity>
-                <tibex:activityExtension name="Confirm"
-                    tibex:xpdlId="0fa1dc0b-f26c-4547-a412-94ae9ada001e" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
-                    <bpws:targets>
-                        <bpws:target linkName="CreateMovieListToConfirm"/>
-                    </bpws:targets>
-                    <bpws:sources>
-                        <bpws:source linkName="ConfirmToExit"/>
-                    </bpws:sources>
-                    <tibex:config>
-                        <bwext:BWActivity
-                            activityTypeID="bw.generalactivities.confirm"
-                            xmlns:activityconfig="http://tns.tibco.com/bw/model/activityconfig"
-                            xmlns:bwext="http://tns.tibco.com/bw/model/core/bwext"
-                            xmlns:generalactivities="http://ns.tibco.com/bw/palette/generalactivities" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                            <activityConfig>
-                                <properties name="config" xsi:type="activityconfig:EMFProperty">
-                                    <type href="http://ns.tibco.com/bw/palette/generalactivities#//Confirm"/>
-                                    <value
-                                    confirmEvent="JMSReceiveMessage" xsi:type="generalactivities:Confirm"/>
-                                </properties>
-                            </activityConfig>
-                        </bwext:BWActivity>
-                    </tibex:config>
-                </tibex:activityExtension>
-            </bpws:extensionActivity>
         </bpws:flow>
     </bpws:scope>
 </bpws:process>
