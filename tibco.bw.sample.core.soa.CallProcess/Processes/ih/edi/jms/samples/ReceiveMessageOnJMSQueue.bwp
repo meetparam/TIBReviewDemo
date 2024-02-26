@@ -825,7 +825,7 @@
             sca-bpel:privateProperty="true" sca-bpel:property="yes"
             sca-bpel:sharedResourceType="{http://xsd.tns.tibco.com/bw/models/sharedresource/jms}JMSConnectionFactory" type="xsd:string">
             <bpws:from>
-                <bpws:literal>tibco.bw.sample.core.soa.callprocess.JMSConnectionResource</bpws:literal>
+                <bpws:literal>ih.edi.sample.core.soa.callprocess.JMSConnectionResource</bpws:literal>
             </bpws:from>
         </bpws:variable>
         <bpws:variable element="ns1:ActivityInput" name="Log-input" sca-bpel:internal="true"/>
@@ -965,7 +965,7 @@
                         <bpws:source linkName="CreateMovieListToConfirm"/>
                     </bpws:sources>
                     <tibex:CallProcess
-                        subProcessName="tibco.bw.sample.core.soa.callprocess.CreateMoviesProcess" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"/>
+                        subProcessName="ih.edi.sample.core.soa.callprocess.CreateMoviesProcess" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"/>
                 </tibex:extActivity>
             </bpws:extensionActivity>
             <bpws:exit name="Exit" tibex:xpdlId="c2524c37-5b8e-48c9-9866-deb8dbf4932b">

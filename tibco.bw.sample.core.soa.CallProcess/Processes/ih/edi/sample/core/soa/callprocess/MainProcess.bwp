@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpws:process exitOnStandardFault="no"
-    name="tibco.bw.sample.core.soa.callprocess.MainProcess"
+    name="ih.edi.sample.core.soa.callprocess.MainProcess"
     suppressJoinFailure="yes"
     targetNamespace="http://xmlns.example.com/20160426110134"
     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
@@ -672,12 +672,12 @@
                 <bpws:literal>tibco.bw.sample.core.soa.callprocess.ActionMoviesList</bpws:literal>
             </bpws:from>
         </bpws:variable>
-        <bpws:variable element="ns5:MoviesList" name="CreateMovieList" sca-bpel:internal="true"/>
-        <bpws:variable element="ns5:Movie"
-            name="ClassificationByGenre-input" sca-bpel:internal="true"/>
         <bpws:variable name="GenreAction" sca-bpel:hotUpdate="false"
             sca-bpel:privateProperty="true" sca-bpel:property="yes"
             tibex:propertySource="ACTION" type="xsd:string"/>
+        <bpws:variable element="ns5:MoviesList" name="CreateMovieList" sca-bpel:internal="true"/>
+        <bpws:variable element="ns5:Movie"
+            name="ClassificationByGenre-input" sca-bpel:internal="true"/>
     </bpws:variables>
     <bpws:extensions>
         <bpws:extension mustUnderstand="no" namespace="http://www.eclipse.org/gmf/runtime/1.0.2/notation"/>
@@ -786,7 +786,7 @@
                                     expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns5=&quot;http://www.example.com/namespaces/tns/1461693221287&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;index&quot;/>&lt;xsl:param name=&quot;CreateMovieList&quot;/>&lt;xsl:template name=&quot;ClassificationByGenre-input&quot; match=&quot;/&quot;>&lt;tns5:Movie>&lt;tns5:movieName>&lt;xsl:value-of select=&quot;$CreateMovieList/tns5:Movie[$index]/tns5:movieName&quot;/>&lt;/tns5:movieName>&lt;tns5:genre>&lt;xsl:value-of select=&quot;$CreateMovieList/tns5:Movie[$index]/tns5:genre&quot;/>&lt;/tns5:genre>&lt;xsl:if test=&quot;$CreateMovieList/tns5:Movie[$index]/tns5:year&quot;>&lt;tns5:year>&lt;xsl:value-of select=&quot;$CreateMovieList/tns5:Movie[$index]/tns5:year&quot;/>&lt;/tns5:year>&lt;/xsl:if>&lt;/tns5:Movie>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                                     </tibex:inputBindings>
                                     <tibex:CallProcess spawn="true"
-                                    subProcessName="tibco.bw.sample.core.soa.callprocess.ActionMoviesList" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                                    subProcessName="ih.edi.sample.core.soa.callprocess.ActionMoviesList" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
                                     <dynamicNameExpression
                                     body="ACED000574006E69662820244372656174654D6F7669654C6973742F6E73353A4D6F7669655B7873643A696E742824696E646578295D2F6E73353A67656E726520203D2447656E7265416374696F6E2029207468656E202453756250726F636573733220656C7365202453756250726F6365737331" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"/>
                                     <dynamicNameDesignExpression>
@@ -813,7 +813,7 @@
                         <bpws:source linkName="CreateElementsListToForEach"/>
                     </bpws:sources>
                     <tibex:CallProcess
-                        subProcessName="tibco.bw.sample.core.soa.callprocess.CreateMoviesProcess" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"/>
+                        subProcessName="ih.edi.sample.core.soa.callprocess.CreateMoviesProcess" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"/>
                 </tibex:extActivity>
             </bpws:extensionActivity>
         </bpws:flow>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpws:process exitOnStandardFault="no"
-    name="tibco.bw.sample.core.soa.callprocess.CreateMoviesProcess"
+    name="ih.edi.sample.core.soa.callprocess.OtherMoviesList"
     suppressJoinFailure="yes"
-    targetNamespace="http://xmlns.example.com/20160426152048"
+    targetNamespace="http://xmlns.example.com/20160427155013"
     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
     xmlns:info="http://www.tibco.com/bw/process/info"
     xmlns:ns="http://www.tibco.com/pe/EngineTypes"
-    xmlns:ns1="http://www.example.com/namespaces/tns/1461693221287"
+    xmlns:ns0="http://www.example.com/namespaces/tns/1461693221287"
+    xmlns:ns1="http://www.tibco.com/pe/WriteToLogActivitySchema"
     xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
     xmlns:sca-bpel="http://docs.oasis-open.org/ns/opencsa/sca-bpel/200801"
     xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"
@@ -14,12 +15,12 @@
     <tibex:VariableDescriptor type="MemorySaving">
         <task name="End">
             <endingVariables>
-                <variable>Mapper</variable>
+                <variable>Start</variable>
             </endingVariables>
         </task>
-        <task name="Mapper">
+        <task name="Log">
             <endingVariables>
-                <variable>Mapper-input</variable>
+                <variable>Log-input</variable>
             </endingVariables>
         </task>
     </tibex:VariableDescriptor>
@@ -144,18 +145,31 @@
             </complexType>
             <element name="DuplicateKeyException" type="tns:DuplicateKeyExceptionType"/>
         </schema>
-        <wsdl:definitions
-            targetNamespace="http://xmlns.example.com/20160426152048"
-            xmlns:tns="http://xmlns.example.com/20160426152048"
-            xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
-            xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+        <xs:schema attributeFormDefault="unqualified"
+            elementFormDefault="qualified"
+            targetNamespace="http://www.tibco.com/pe/WriteToLogActivitySchema"
+            xmlns:tns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:complexType name="LogParametersType">
+                <xs:sequence>
+                    <xs:element form="unqualified" minOccurs="0"
+                        name="msgCode" type="xs:string"/>
+                    <xs:element form="unqualified" minOccurs="0"
+                        name="loggerName" type="xs:string"/>
+                    <xs:element form="unqualified" minOccurs="0"
+                        name="logLevel" type="xs:string"/>
+                    <xs:element form="unqualified" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ActivityInput" type="tns:LogParametersType"/>
+        </xs:schema>
     </tibex:Types>
     <tibex:ProcessInfo callable="true" createdBy="danilopatron"
-        createdOn="Tue Apr 26 15:20:48 CDT 2016" description=""
+        createdOn="Wed Apr 27 15:50:13 CDT 2016" description=""
         extraErrorVars="false" modifiers="public"
-        productVersion="6.3.2 V26 2016-04-21" scalable="true"
+        productVersion="6.3.2 V28 2016-04-26" scalable="true"
         singleton="true" stateless="false" type="IT"/>
-    <tibex:ProcessInterface context="" input="" output="{http://www.example.com/namespaces/tns/1461693221287}MoviesList"/>
+    <tibex:ProcessInterface context=""
+        input="{http://www.example.com/namespaces/tns/1461693221287}Movie" output="{http://www.example.com/namespaces/tns/1461693221287}movieResume"/>
     <tibex:ProcessTemplateConfigurations/>
     <notation:Diagram measurementUnit="Pixel" type="BWProcess"
         xmlns:bwnotation="http://tns.tibco.com/bw/runtime/BWNotation"
@@ -258,10 +272,10 @@
                                     gradientEndColor="50431"
                                     gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
                                     <element href="//0/@process/@activity/@activity/@activities.1"/>
-                                    <layoutConstraint x="368"
-                                    xsi:type="notation:Bounds" y="247"/>
+                                    <layoutConstraint x="311"
+                                    xsi:type="notation:Bounds" y="180"/>
                                     </children>
-                                    <children type="4002">
+                                    <children type="4002 bw.generalactivities.log">
                                     <children type="4017">
                                     <styles
                                     fontName=".Helvetica Neue DeskInterface"
@@ -298,8 +312,10 @@
                                     gradientEndColor="50431"
                                     gradientStartColor="16777215" xsi:type="bwnotation:BackgroundStyle"/>
                                     <element href="//0/@process/@activity/@activity/@activities.2"/>
-                                    <layoutConstraint x="185"
-                                    xsi:type="notation:Bounds" y="140"/>
+                                    <layoutConstraint
+                                    height="40" width="40"
+                                    x="156"
+                                    xsi:type="notation:Bounds" y="94"/>
                                     </children>
                                     <styles xsi:type="notation:DrawerStyle"/>
                                     <styles xsi:type="notation:SortingStyle"/>
@@ -361,7 +377,7 @@
             <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
             <styles fontName=".Helvetica Neue DeskInterface" xsi:type="notation:FontStyle"/>
             <element href="//0/@process/@activity/@activity/@links/@children.0"/>
-            <bendpoints points="[25, 17, -121, -82]$[122, 82, -24, -17]" xsi:type="notation:RelativeBendpoints"/>
+            <bendpoints points="[0, 0, 0, 0]$[0, 0, 0, 0]" xsi:type="notation:RelativeBendpoints"/>
         </edges>
         <edges
             source="//@children.0/@children.3/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2"
@@ -372,26 +388,18 @@
             <styles lineColor="0" xsi:type="notation:ConnectorStyle"/>
             <styles fontName=".Helvetica Neue DeskInterface" xsi:type="notation:FontStyle"/>
             <element href="//0/@process/@activity/@activity/@links/@children.1"/>
-            <bendpoints points="[25, 11, -139, -64]$[140, 64, -24, -11]" xsi:type="notation:RelativeBendpoints"/>
+            <bendpoints points="[0, 0, 0, 0]$[0, 0, 0, 0]" xsi:type="notation:RelativeBendpoints"/>
         </edges>
     </notation:Diagram>
-    <tibex:NamespaceRegistry enabled="true">
-        <tibex:namespaceItem
-            namespace="http://www.example.com/namespaces/tns/1461693221287" prefix="tns1"/>
-    </tibex:NamespaceRegistry>
     <bpws:import importType="http://www.w3.org/2001/XMLSchema" namespace="http://www.example.com/namespaces/tns/1461693221287"/>
     <bpws:variables>
         <bpws:variable element="ns:ProcessContext"
             name="_processContext" sca-bpel:internal="true"/>
-        <bpws:variable element="ns1:MoviesList" name="Mapper-input" sca-bpel:internal="true"/>
-        <bpws:variable element="ns1:MoviesList" name="Mapper" sca-bpel:internal="true"/>
-        <bpws:variable element="ns1:MoviesList" name="End-input"
+        <bpws:variable element="ns0:Movie" name="Start"
+            sca-bpel:internal="true" tibex:parameter="in"/>
+        <bpws:variable element="ns0:movieResume" name="End-input"
             sca-bpel:internal="true" tibex:parameter="out"/>
-        <bpws:variable name="varMovieName" type="xsd:string">
-            <bpws:from>
-                <bpws:literal>Die Hard</bpws:literal>
-            </bpws:from>
-        </bpws:variable>
+        <bpws:variable element="ns1:ActivityInput" name="Log-input" sca-bpel:internal="true"/>
     </bpws:variables>
     <bpws:extensions>
         <bpws:extension mustUnderstand="no" namespace="http://www.eclipse.org/gmf/runtime/1.0.2/notation"/>
@@ -404,15 +412,16 @@
     <bpws:scope name="scope">
         <bpws:flow name="flow">
             <bpws:links>
-                <bpws:link name="StartToMapper" tibex:linkType="SUCCESS"/>
-                <bpws:link name="MapperToEnd" tibex:linkType="SUCCESS"/>
+                <bpws:link name="StartToEnd" tibex:linkType="SUCCESS"/>
+                <bpws:link name="LogToEnd" tibex:linkType="SUCCESS"/>
             </bpws:links>
             <bpws:extensionActivity>
                 <tibex:receiveEvent createInstance="yes"
                     eventTimeout="0" name="Start"
-                    tibex:xpdlId="3aedc9ec-a37c-4475-95a5-b4d2f9f0f24c" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                    tibex:xpdlId="d6c034ce-6045-411c-9961-b188d84c60d7"
+                    variable="Start" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
                     <bpws:sources>
-                        <bpws:source linkName="StartToMapper"/>
+                        <bpws:source linkName="StartToEnd"/>
                     </bpws:sources>
                     <tibex:eventSource>
                         <tibex:StartEvent xmlns:tibex="http://www.tibco.com/bpel/2007/extensions"/>
@@ -422,13 +431,13 @@
             <bpws:extensionActivity>
                 <tibex:activityExtension inputVariable="End-input"
                     name="End"
-                    tibex:xpdlId="6f380e7e-8f85-47e6-bac5-0b5994217b5d" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                    tibex:xpdlId="3e715a44-b2f3-40dd-9f18-280fc91e3274" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
                     <bpws:targets>
-                        <bpws:target linkName="MapperToEnd"/>
+                        <bpws:target linkName="LogToEnd"/>
                     </bpws:targets>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns1=&quot;http://www.example.com/namespaces/tns/1461693221287&quot; version=&quot;2.0&quot;>&#xa;    &lt;xsl:param name=&quot;Mapper&quot;/>&#xa;    &lt;xsl:template name=&quot;End-input&quot; match=&quot;/&quot;>&#xa;        &lt;tns1:MoviesList>&#xa;            &lt;xsl:copy-of select=&quot;$Mapper/tns1:Movie&quot;/>&#xa;        &lt;/tns1:MoviesList>&#xa;    &lt;/xsl:template>&#xa;&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;http://www.example.com/namespaces/tns/1461693221287&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Start&quot;/>&lt;xsl:template name=&quot;End-input&quot; match=&quot;/&quot;>&lt;tns:movieResume>&lt;tns:movieName>&lt;xsl:value-of select=&quot;$Start/tns:movieName&quot;/>&lt;/tns:movieName>&lt;xsl:if test=&quot;$Start/tns:year&quot;>&lt;tns:year>&lt;xsl:value-of select=&quot;$Start/tns:year&quot;/>&lt;/tns:year>&lt;/xsl:if>&lt;/tns:movieResume>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
@@ -447,32 +456,31 @@
                 </tibex:activityExtension>
             </bpws:extensionActivity>
             <bpws:extensionActivity>
-                <tibex:activityExtension inputVariable="Mapper-input"
-                    name="Mapper" outputVariable="Mapper"
-                    tibex:xpdlId="46cf529a-54c2-4b2f-8e5d-916ca3aa0fa1" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
+                <tibex:activityExtension inputVariable="Log-input"
+                    name="Log"
+                    tibex:xpdlId="e5da3a97-c573-477e-811e-767ce07a74f3" xmlns:tibex="http://www.tibco.com/bpel/2007/extensions">
                     <bpws:targets>
-                        <bpws:target linkName="StartToMapper"/>
+                        <bpws:target linkName="StartToEnd"/>
                     </bpws:targets>
                     <bpws:sources>
-                        <bpws:source linkName="MapperToEnd"/>
+                        <bpws:source linkName="LogToEnd"/>
                     </bpws:sources>
                     <tibex:inputBindings>
                         <tibex:inputBinding
-                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns1=&quot;http://www.example.com/namespaces/tns/1461693221287&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;varMovieName&quot;/>&lt;xsl:template name=&quot;Mapper-input&quot; match=&quot;/&quot;>&lt;tns1:MoviesList>&lt;xsl:if test=&quot;upper-case($varMovieName)  = &amp;quot;DIE HARD&amp;quot;&quot;>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Die Hard&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Action&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1988&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;/xsl:if>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Mission: Impossible&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Action&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;2011&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Start Wars&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Science Fiction&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1968&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Love Story&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Drama&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1981&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Aliens&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Science Fiction&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1986&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Casino Royale&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Action&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;2006&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;tns1:Movie>&lt;tns1:movieName>&lt;xsl:value-of select=&quot;&amp;quot;Casablanca&amp;quot;&quot;/>&lt;/tns1:movieName>&lt;tns1:genre>&lt;xsl:value-of select=&quot;&amp;quot;Drama&amp;quot;&quot;/>&lt;/tns1:genre>&lt;tns1:year>&lt;xsl:value-of select=&quot;1942&quot;/>&lt;/tns1:year>&lt;/tns1:Movie>&lt;/tns1:MoviesList>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
+                            expression="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xa;&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:tns=&quot;http://www.tibco.com/pe/WriteToLogActivitySchema&quot; xmlns:tns2=&quot;http://www.example.com/namespaces/tns/1461693221287&quot; version=&quot;2.0&quot;>&lt;xsl:param name=&quot;Start&quot;/>&lt;xsl:template name=&quot;Log-input&quot; match=&quot;/&quot;>&lt;tns:ActivityInput>&lt;message>&lt;xsl:value-of select=&quot;concat(&amp;quot;Other: &amp;quot;, $Start/tns2:movieName, &amp;quot; Genre: &amp;quot;, $Start/tns2:genre, &amp;quot; Year: &amp;quot;, string($Start/tns2:year))&quot;/>&lt;/message>&lt;/tns:ActivityInput>&lt;/xsl:template>&lt;/xsl:stylesheet>" expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xslt1.0"/>
                     </tibex:inputBindings>
                     <tibex:config>
                         <bwext:BWActivity
-                            activityTypeID="bw.generalactivities.mapper"
+                            activityTypeID="bw.generalactivities.log"
                             version="6.0.0.001"
                             xmlns:activityconfig="http://tns.tibco.com/bw/model/activityconfig"
                             xmlns:bwext="http://tns.tibco.com/bw/model/core/bwext"
-                            xmlns:generalactivities="http://ns.tibco.com/bw/palette/generalactivities"
-                            xmlns:tns_1461693221287="http://www.example.com/namespaces/tns/1461693221287" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            xmlns:generalactivities="http://ns.tibco.com/bw/palette/generalactivities" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                             <activityConfig>
                                 <properties name="config" xsi:type="activityconfig:EMFProperty">
-                                    <type href="http://ns.tibco.com/bw/palette/generalactivities#//Mapper"/>
-                                    <value
-                                    inputQName="tns_1461693221287:MoviesList" xsi:type="generalactivities:Mapper"/>
+                                    <type href="http://ns.tibco.com/bw/palette/generalactivities#//Log"/>
+                                    <value role="Info"
+                                    suppressJobInfo="true" xsi:type="generalactivities:Log"/>
                                 </properties>
                             </activityConfig>
                         </bwext:BWActivity>
